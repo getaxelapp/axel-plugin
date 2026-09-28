@@ -1,0 +1,20 @@
+{
+  "name": "axel",
+  "version": "0.3.0",
+  "description": "Connects Claude to Axel, your company's shared brain, files, jobs and read-only store data. Includes the core Axel skill and seven specialist skills, whose playbooks load from Axel after sign-in.",
+  "author": {
+    "name": "Your Digital Media"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "axel",
+    "ydm",
+    "shopify",
+    "cro",
+    "brain",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "homepage": "https://github.com/getaxelapp/axel-plugin",
+  "repository": "https://github.com/getaxelapp/axel-plugin"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "axel",
+  "owner": {
+    "name": "Your Digital Media"
+  },
+  "metadata": {
+    "description": "Marketplace for the Axel plugin by Your Digital Media."
+  },
+  "plugins": [
+    {
+      "name": "axel",
+      "source": "./",
+      "description": "Connects Claude to Axel, your company's shared brain, files, jobs and read-only store data. Includes the core Axel skill and seven specialist skills, whose playbooks load from Axel after sign-in.",
+      "version": "0.3.0",
+      "author": {
+        "name": "Your Digital Media"
+      },
+      "license": "UNLICENSED",
+      "keywords": [
+        "axel",
+        "ydm",
+        "shopify",
+        "cro",
+        "brain",
+        "mcp"
+      ],
+      "homepage": "https://github.com/getaxelapp/axel-plugin"
+    }
+  ]
+}
