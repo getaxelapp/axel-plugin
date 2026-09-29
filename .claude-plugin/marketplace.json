@@ -12,7 +12,7 @@
       "name": "axel",
       "source": "./",
       "description": "Connects Claude to Axel, your company's shared brain, files, jobs and read-only store data. Includes the core Axel skill and seven specialist skills, whose playbooks load from Axel after sign-in.",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "author": {
         "name": "Your Digital Media"
       },

@@ -148,13 +148,15 @@ If a document contains a refused item, remove that part before saving. Tell the 
 - Do not reword it to get around the rule.
 - Offer to save a version without the refused part.
 
-## Jobs: work that spans sessions or people
+## Jobs: how work is tracked
 
-**A job is a thread.** Use one when work will take more than one session or more than one person.
+**A job is a thread.** Anyone on the team can pick it up later.
 
-1. **Look first.** Call `job_list`. If an open job matches, call `job_get` and continue it.
-2. **Otherwise offer to start one.** On yes, call `job_create` with a clear title.
+1. **On any task with more than one step, start with jobs.** Call `job_list`.
+   If an open job matches, call `job_get` and continue it.
+2. **If none matches, open one.** Say the title you will use, then call `job_create`.
    Set the specialist if one applies. Its key is the specialist skill's name, such as `experimentation`.
+   Skip jobs only for a quick one-off question.
 3. **Add one entry per session,** at a natural stop or before the session ends.
    Show the entry in four short lines, then add it with `job_add_entry` on yes:
    - **asked:** what the user wanted this session;
