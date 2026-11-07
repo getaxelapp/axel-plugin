@@ -1,6 +1,6 @@
 ---
 name: axel
-description: Use for any question about the user's own business, before general knowledge. That covers their store, brand, products, customers, numbers, tests, past decisions, documents and work in progress. Typical asks are "what do our customers say about...", "how did last week go", "why did conversion drop", "what did we decide about...", "what are our brand rules", and "pick up where a colleague left off". Also use it when the user says "save this", "remember this", "note this for the team", or corrects an answer that came from Axel. Axel is the company's shared brain, department files, job threads, checks and read-only store, ads and analytics data.
+description: Use for any question about the user's own business, before general knowledge. That covers their store, brand, products, customers, numbers, tests, past decisions, documents and work in progress. Typical asks are "what did we decide about...", "what are our brand rules", "what is our returns policy", "where is the report on...", and "pick up where a colleague left off". For tests, funnels, merchandising, search, ads, customers or competitors, the matching specialist skill also applies. Also use it when the user says "save this", "remember this", "note this for the team", or corrects an answer that came from Axel. Axel is the company's shared brain, department files, job threads, checks and read-only store, ads and analytics data.
 ---
 
 # Axel
@@ -25,11 +25,12 @@ Everything is shared. Your colleagues and the YDM team see what you save.
 
 ## How to answer any business question
 
-Do this loop every time. One search is not enough.
+Do this loop for every question about the business. Do not answer from general knowledge as if it were company fact.
 
+0. **Specialist area?** If the question is about tests, funnels or why sales moved, merchandising, search, ads, customers or competitors, call `playbook(name)` first and follow it inside this loop.
 1. **Memory first.** `brain_lookup(query, partition="memory")`. Corrections and recent decisions live here.
 2. **Search with the user's words.** `brain_lookup(query)` with no partition searches every area.
-3. **Search again, differently.** Never answer "nothing found" after one search.
+3. **If the results do not answer it, search again, differently.** Never answer "nothing found" after one search.
    - Use other words: the shopper's words, a synonym, singular and plural, the product or topic name. Keywords do not match word forms well.
    - Or pick an area. `brain_map` lists the areas. Set `partition` to each area likely to hold the answer.
    - Raise `k` (up to 20) when results look thin or crowded by raw files.
@@ -48,6 +49,7 @@ Read the top review and support documents. If a reviews or helpdesk source is co
 | The user wants | Use |
 |---|---|
 | What the company knows or decided | The loop above: `brain_lookup`, then `brain_read` |
+| Who the company is, or how this brain is filed | `brain_read("00-client-profile.md")`, and `brain_read("_filing-rules.md")` if it exists. Not every brain has both. `brain_map("root")` shows them |
 | To see what the brain holds, or where to look | `brain_map` (all areas), `brain_map(partition)` (paths in one area) |
 | A report, brief or document a colleague saved | `files_list(department?)`, then `file_read(path)` |
 | Method for a test, funnel, merchandising, search, ads, customers or competitors | `playbook(name)`. See "Specialist skills" |
@@ -63,12 +65,12 @@ Read the top review and support documents. If a reviews or helpdesk source is co
 | Blended ROAS, MER, order attribution | `triplewhale_query` |
 | Helpdesk volume, contact reasons, satisfaction, conversations | `commslayer_query` |
 | Email or SMS (Klaviyo), product reviews (Judge.me), other sources with no own tool | `api_read` |
-| Stored daily figures for a date, or what a department's dashboard tracks | `metrics_get(keys, date)`, `widgets_get(department)` |
+| Stored daily figures for a date, or what a department's dashboard tracks | `metrics_get(keys, date)`, `widgets_get(department)`. Keys: `sales`, `orders`, `sessions`, `meta_spend`, `google_spend`, `mer`. Stored figures only; for anything else use the data tool |
 | What Axel's checks found, or whether a check ran | `findings_list`, `checks_list`, `check_runs_list`, then `check_run_get(run_id)` for the evidence |
 | The published briefs | `briefs_list(department?, limit?)` |
 | Work under way, or a colleague's thread | `job_list`, then `job_get(job_id)` |
 | Jobs by department | `boards_get(department?)` |
-| An action the YDM team set up, such as a report refresh | `run_action` (no arguments lists them) |
+| An action the YDM team set up, such as a report refresh | `run_action` (no arguments lists them). Ask the user before you start one |
 | Axel usage this month, or what this person may do | `usage_get`, `permissions_get` |
 | To keep something | `remember`, `propose_knowledge` or `file_save`. See "Saving" |
 | What happened to a save | `save_status(saveId)` |
@@ -76,9 +78,6 @@ Read the top review and support documents. If a reviews or helpdesk source is co
 Departments for boards, checks, widgets and briefs are: growth, paid, search, ops, care, market, ceo.
 You only see data tools for connected sources. If one is missing, say that source is not connected. Do not invent its numbers.
 If a tool is refused for lack of permission, say so. `permissions_get` shows what the person may do.
-
-If department-director tools appear in your list (`director_charter_get`, `director_playbooks_list`, `director_remember`, `director_ask`), use them as their descriptions say.
-`director_ask` hands a research question to a director as a job. Tell the user the job code it returns.
 
 ## Specialist skills
 
@@ -112,7 +111,7 @@ Seven specialist skills build on this one. Use the matching one. Each loads its 
 
 When the user corrects you, or says an answer is out of date, do this at once:
 
-1. Say you will use the correction from now on.
+1. Say you will use the correction for the rest of this chat, until a save lands.
 2. Offer `remember` with one or two dated sentences. Show the exact text.
 3. If a brain document was wrong, also offer `propose_knowledge` to fix it.
 
@@ -141,14 +140,14 @@ Ask one question: **when things change, would you edit this, or write a new one?
 | What it is | Tool | What happens |
 |---|---|---|
 | A short dated fact or correction. "Spring sale: 20% off sitewide, 1 to 14 October 2026." | `remember(fact)` | Lands at once in memory, dated. One or two sentences. |
-| Knowledge you would edit: a process, how-to, rule, brand guideline, decision, standing fact | `propose_knowledge(partition, path, content, why)` | A company admin's yes saves it at once. For anyone else it waits for an admin, unless the company auto-approves. The answer says which. |
+| Knowledge you would edit: a process, how-to, rule, brand guideline, decision, standing fact | `propose_knowledge(partition, path, content, why)` | If you are signed in as a company admin, your yes in chat approves it. For anyone else it waits for an admin, or lands unreviewed if the company auto-approves. The answer says which. |
 | A document you would replace: a report, readout, brief, plan for a period | `file_save(department, name, content)` | Lands in that department's files. The name must end in `.md`. |
 
 A report is never knowledge. For both, `file_save` the report, then `propose_knowledge` the lesson and link the file.
 
 Guidance:
 
-- **`propose_knowledge`:** use `brain_map(partition)` to pick the partition and path. Search first so you do not duplicate a document.
+- **`propose_knowledge`:** read `_filing-rules.md` if it exists. Otherwise use `brain_map(partition)` to pick the partition and path. Search first so you do not duplicate a document.
   Write a clear `why`: what changed and the source. If it updates a document, name it.
 - **`file_save`:** pick the department whose team would look for it. The standard set is Marketing, Ecommerce, CRO, Customer, Product and Operations.
   An admin may have added more. `files_list` shows the current list.
@@ -204,9 +203,9 @@ If the user gives you a job handover line from the Axel app, it carries a `tenan
 
 1. `job_context` first. It shows the job, its open ask, decisions, file versions and sources.
 2. `job_checkout` before you work. It takes the job so two people cannot work it at once. Pass the `expected_holder_version` from the context.
-3. `job_file_version_save` to save a file to the job. Ask first. Give a fresh `idempotency_key` for each save.
-4. `job_ask_answer` only after the person has confirmed that exact ask and option in Axel. The confirmation expires after ten minutes. Never answer an ask on a guess.
-5. `job_hand_back` with notes when you stop. `job_mark_done` only when the job has no open ask.
+3. `job_file_version_save` to save a file to the job. Ask first. Use a fresh `idempotency_key` for each new save. Reuse the same key when you retry the same save.
+4. `job_ask_answer` only after the person has confirmed that exact ask and option in Axel. Use only the `confirmation_id` Axel gave the person. Never make one up. It expires after ten minutes. Never answer an ask on a guess.
+5. `job_hand_back` with notes when you stop. Pass `expected_holder_version` equal to the `job.holder_version` that `job_checkout` returned (or re-read `job_context`). `job_mark_done` only when the job has no open ask.
 
 ## Privacy: what is logged
 
