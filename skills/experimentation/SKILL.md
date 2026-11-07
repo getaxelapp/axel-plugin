@@ -1,6 +1,6 @@
 ---
 name: experimentation
-description: The experimentation specialist. Use when the user asks what to test next, or has a test idea or hypothesis. Use it to design an A/B or split test, or to work out how long a test must run and how much traffic it needs. Use it for "is the test winning", "did it win" and test readouts. Use it for past tests and what they taught us, the test backlog, the testing roadmap, and ranking test ideas. Loads its playbook from Axel.
+description: Use when the user asks what to test next, has a test idea or hypothesis, or wants to design an A/B or split test. Also for "is the test winning", "did it win", test readouts, how long a test must run, how much traffic it needs, past tests and what they taught us, the test backlog, and ranking test ideas. Loads its playbook from Axel.
 ---
 
 # Experimentation
@@ -8,7 +8,8 @@ description: The experimentation specialist. Use when the user asks what to test
 **How to do this work lives on the Axel server, not in this skill.**
 
 1. First, call Axel's `playbook` tool with `name` set to `experimentation`.
-2. Follow what it returns. Also follow the core `axel` skill's rules on saving, jobs and privacy.
+2. Follow what it returns.
+3. Search the brain as the core `axel` skill says: memory first, then at least two searches with different words or areas, then read the best documents. Follow its rules on saving, corrections, jobs and privacy.
 
 If Axel is not connected, or asks you to sign in, tell the user how to fix it.
 They connect Axel under **Customize → Connectors**, then sign in with their work email.
