@@ -53,10 +53,18 @@ Three ways to make a chat work through Axel from the first message:
 
 - **The connection** to Axel at `https://mcp.getaxel.app/mcp`. You sign in with your work email.
 - **A start command,** `/axel:start`, that binds a chat to Axel and picks up or opens a job.
-- **The core skill.** It teaches Claude how to use Axel well: when to look things up, and how to save safely.
+- **The core skill.** It teaches Claude how to use Axel well: how to search the brain, which tool to use for each kind of question, how to save safely, and how to run jobs.
 - **Seven specialist skills:** experimentation, analytics and attribution, merchandising, and search and answer engines.
   The other three are paid acquisition, customer insight and competitive intelligence.
   Each one loads its playbook from Axel after you sign in.
+
+## What changed in 0.4.0
+
+- **Better brain search.** Claude now checks memory first, then searches again with other words or in other areas before it says it found nothing. It reads the best documents and cites each path.
+- **The right tool without prompting.** The core skill has a table that maps what you ask to the Axel tool that answers it. That covers files, jobs, checks, briefs, metrics and every connected data source.
+- **Corrections are offered for saving.** When you correct Claude, it offers to remember the fix for the whole team.
+- **Jobs from the Axel app.** Claude knows how to read, check out, update and hand back a job from the app.
+- **Clearer skill descriptions,** so Claude picks the right specialist from the way you naturally ask.
 
 ## Your privacy
 
