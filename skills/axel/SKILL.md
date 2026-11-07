@@ -41,7 +41,7 @@ Do this loop for every question about the business. Do not answer from general k
    If two facts conflict, the newer dated one wins. Say that you saw both.
    If the brain still lacks the answer, say plainly what you searched and what is missing. Do not guess.
 
-Example: "What do customers say about our sizing?" Search memory for "sizing". Then search "too small", "runs small", "fit".
+Example: "What do customers say about our sizing?" Call `playbook("customer-insight")` first. Search memory for "sizing". Then search "too small", "runs small", "fit".
 Read the top review and support documents. If a reviews or helpdesk source is connected, check it for counts. Answer with each path.
 
 ## Which tool for what
@@ -140,7 +140,7 @@ Ask one question: **when things change, would you edit this, or write a new one?
 | What it is | Tool | What happens |
 |---|---|---|
 | A short dated fact or correction. "Spring sale: 20% off sitewide, 1 to 14 October 2026." | `remember(fact)` | Lands at once in memory, dated. One or two sentences. |
-| Knowledge you would edit: a process, how-to, rule, brand guideline, decision, standing fact | `propose_knowledge(partition, path, content, why)` | If you are signed in as a company admin, your yes in chat approves it. For anyone else it waits for an admin, or lands unreviewed if the company auto-approves. The answer says which. |
+| Knowledge you would edit: a process, how-to, rule, brand guideline, decision, standing fact | `propose_knowledge(partition, path, content, why)` | If the signed-in person is a company admin, their yes in chat approves it and it saves at once. For anyone else it waits for an admin, or lands unreviewed if the company auto-approves. The answer says which. |
 | A document you would replace: a report, readout, brief, plan for a period | `file_save(department, name, content)` | Lands in that department's files. The name must end in `.md`. |
 
 A report is never knowledge. For both, `file_save` the report, then `propose_knowledge` the lesson and link the file.
